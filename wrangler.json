@@ -1,4 +1,6 @@
 {
+  "$schema": "https://cdn.jsdelivr.net/npm/wrangler/config-schema.json",
+  "main": "worker.js",
   "vars": {
     "allowedOrigins": []
   }
