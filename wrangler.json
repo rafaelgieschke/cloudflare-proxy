@@ -1,0 +1,9 @@
+{
+  "$schema": "https://cdn.jsdelivr.net/npm/wrangler/config-schema.json",
+  "name": "proxy",
+  "main": "./worker.js",
+  "compatibility_date": "2026-01-05",
+  "vars": {
+    "allowedOrigins": ["https://origin.example"]
+  }
+}
