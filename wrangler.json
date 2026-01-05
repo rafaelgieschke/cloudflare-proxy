@@ -1,6 +1,6 @@
 {
   "$schema": "https://cdn.jsdelivr.net/npm/wrangler/config-schema.json",
-  "name": "proxy2",
+  "name": "cloudflare-proxy",
   "main": "./worker.js",
   "compatibility_date": "2026-01-05",
   "vars": {
