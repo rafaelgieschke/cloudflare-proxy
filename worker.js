@@ -8,7 +8,7 @@ export default {
       return new Response("forbidden", { status: 421 });
     }
     const origin = request.headers.get("origin");
-    if (!allowedOrigins.includes(origin)) {
+    if (origin !== sourceOrigin) {
       return new Response("wrong", { status: 421 });
     }
     const allowedUrls = (await (await fetch(source)).text()).match(
