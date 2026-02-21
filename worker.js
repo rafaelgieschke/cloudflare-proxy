@@ -12,7 +12,7 @@ export default {
       return new Response("wrong", { status: 421 });
     }
     const allowedUrls = (await (await fetch(source)).text()).match(
-      /(?<=^\s*\/\/\s*proxy:\s*)\S*(?=\s*$)/gim
+      /(?<=^\s*\/\/\s*proxy-allow:\s*)\S*(?=\s*$)/gim
     );
     if (!allowedUrls?.some((v) => new URLPattern(v).test(url))) {
       return Response.json(allowedUrls, { status: 421 });
