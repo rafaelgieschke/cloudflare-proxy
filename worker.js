@@ -1,6 +1,6 @@
 export default {
   async fetch(request, { allowedOrigins }) {
-    const { url, source, keepOrigin } = Object.fromEntries(
+    const { url, redirect = "follow", source, keepOrigin } = Object.fromEntries(
       new URL(request.url).searchParams
     );
     const sourceOrigin = new URL(source ?? "https://invalid.invalid").origin;
@@ -28,8 +28,15 @@ export default {
         request2.headers.delete(k);
       }
     }
-    const res = await fetch(request2);
+    const res = await fetch(request2, { redirect });
     const res2 = new Response(res.body, res);
+    if (res2.status >= 300 && res2.status <= 399) {
+       if (res2.headers.has("location")) {
+          const url = new URL(request.url);
+          url.searchParams.set("url", new URL(res2.headers.get("location"), res.url));
+          res2.headers.set("location", url);
+       }
+    }
     res2.headers.append("access-control-allow-origin", "*");
     return res2;
   },
