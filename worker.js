@@ -2,8 +2,9 @@
 
 globalThis.Deno?.serve((request) => worker.fetch(request, Deno.env.toObject()));
 
-export default class worker {
-  static async fetch(/** @type {Request} */ request, { allowedOrigins = [] }) {
+export { worker as default };
+const worker = {
+  async fetch(/** @type {Request} */ request, { allowedOrigins = [] }) {
     if (typeof allowedOrigins === "string") {
       allowedOrigins = JSON.parse(allowedOrigins);
     }
@@ -70,5 +71,5 @@ export default class worker {
     }
     res2.headers.append("access-control-allow-origin", "*");
     return res2;
-  }
-}
+  },
+};
