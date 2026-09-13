@@ -1,0 +1,16 @@
+on:
+  push:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    steps:
+      - uses: actions/checkout@HEAD
+      - run: |
+          podman login -u github -p "$TOKEN" "${IMAGE%:*}"
+          podman build -t "$IMAGE" .
+          podman push "$IMAGE"
+        env:
+          IMAGE: ghcr.io/${{github.repository}}:${{github.ref_name}}
+          TOKEN: ${{secrets.GITHUB_TOKEN}}
